@@ -1,0 +1,18 @@
+{
+  "name": "claude-code-discord-presence",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Discord Rich Presence daemon that shows live Claude Code activity",
+  "type": "module",
+  "main": "src/daemon.js",
+  "scripts": {
+    "start": "node src/daemon.js",
+    "setup": "node scripts/install-hook.js",
+    "setup:uninstall": "node scripts/install-hook.js --uninstall"
+  },
+  "dependencies": {
+    "@xhayper/discord-rpc": "^1.2.1",
+    "chokidar": "^3.6.0",
+    "dotenv": "^16.4.5"
+  }
+}
