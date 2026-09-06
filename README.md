@@ -9,6 +9,8 @@ Working on Discord Claude Code (main)
 Reading files · Using Sonnet 5
 ```
 
+![Claude Code Discord Presence example](docs/example.png)
+
 ## How it works
 
 - A Claude Code [hook](https://docs.claude.com/en/docs/claude-code/hooks) fires
@@ -43,9 +45,23 @@ to run more than once.
 Then just use Claude Code normally. Your Discord status should update within
 a few seconds of starting a session.
 
-To run the daemon silently in the background on Windows without a terminal
-window, double-click `start-hidden.vbs` instead of `npm start` (e.g. drop a
-shortcut to it in your Startup folder to launch it on login).
+To run the daemon in the background without leaving a terminal window open:
+
+- **Windows:** double-click `start-hidden.vbs` (or drop a shortcut to it in
+  your Startup folder to launch it on login).
+- **macOS/Linux:** run `./start-hidden.sh` (or add it to your login items /
+  a `systemd --user` service if you want it to start automatically).
+
+#### Is `start-hidden.vbs` / `start-hidden.sh` safe?
+
+Yes — some antivirus tools flag `.vbs` files by default just because that
+extension is commonly abused, not because of anything specific to this one.
+Both scripts do exactly one thing: `cd` into this folder and run
+`node src/daemon.js` with no visible window, which is the same daemon you'd
+start with `npm start` — nothing is downloaded, nothing runs with elevated
+permissions, and no data leaves your machine except to your own local Discord
+client. They're a few lines of plain text — open them in any text editor to
+verify this yourself before running.
 
 ### Removing it
 
@@ -81,8 +97,7 @@ To create your own Discord Application:
 Issues and PRs welcome — this is a small, single-purpose tool, so keep changes
 focused. A few areas that could use help:
 
-- A macOS/Linux equivalent of `start-hidden.vbs` (e.g. a `pm2`/`launchd`/
-  `systemd` setup)
+- A proper `launchd`/`systemd --user` unit for macOS/Linux autostart
 - Additional tool labels in `src/state.js`
 - Support for more hook events / richer presence states
 
